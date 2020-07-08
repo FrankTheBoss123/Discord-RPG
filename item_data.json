@@ -36,7 +36,7 @@
     "nebula":{"power":5,"weight":5,"crit":5,"uses":35,"max_uses":35,"range":2,"type":"magic","enchant":null,"name":"nebula","emoji_id":730185716406943745},
     "crepitus":{"power":8,"weight":8,"crit":10,"uses":25,"max_uses":25,"range":2,"type":"magic","enchant":null,"name":"crepitus","emoji_id":730185061953175744},
     "bolganone":{"power":12,"weight":11,"crit":5,"uses":20,"max_uses":20,"range":2,"type":"magic","enchant":null,"name":"bolganone","emoji_id":730185178550370384},
-    "leather shield":{"armour":4,"weight":5","type":"shield","name":"leather shield","emoji_id":730185634123350026},
-    "copper shield":{"armour":7,"weight":6","type":"shield","name":"copper shield","emoji_id":730185293982072843},
-    "titanium shield":{"armour":10,"weight":7","type":"shield","name":"titanium shield","emoji_id":730185587826622484}
+    "leather shield":{"armour":4,"weight":5,"type":"shield","name":"leather shield","emoji_id":730185634123350026},
+    "copper shield":{"armour":7,"weight":6,"type":"shield","name":"copper shield","emoji_id":730185293982072843},
+    "titanium shield":{"armour":10,"weight":7,"type":"shield","name":"titanium shield","emoji_id":730185587826622484}
 }
