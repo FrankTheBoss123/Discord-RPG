@@ -1,5 +1,13 @@
 #rememver to uncap the first letter for the index
 
+def get_max_stats(classname):
+    print("under-dev")
+
+def get_growth_rate(classname):
+    print("under-dev")
+
+def get_skill(character,classname):
+    print("under-dev")
 
 character_gif = {
     "Lord":"https://cdn.discordapp.com/attachments/697941728375734363/700970098147721246/ezgif.com-gif-maker_38.gif",
