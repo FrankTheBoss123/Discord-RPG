@@ -1,13 +1,24 @@
+import json
+
 #rememver to uncap the first letter for the index
 
+def read():
+    with open("/Users/Frank Peng/github/Discord-RPG/game_data/class_data.json","r") as w:
+        file = json.load(w)
+        w.close()
+    return file
+
+
+classes_data = read()
+
 def get_max_stats(classname):
-    print("under-dev")
+    return classes_data[classname]["max_stats"]
 
 def get_growth_rate(classname):
-    print("under-dev")
+    return classes_data[classname]["growth_rate"]
 
 def get_skill(character,classname):
-    print("under-dev")
+    return classes_data[classname]["skill"]
 
 character_gif = {
     "Lord":"https://cdn.discordapp.com/attachments/697941728375734363/700970098147721246/ezgif.com-gif-maker_38.gif",

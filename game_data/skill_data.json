@@ -1,0 +1,5 @@
+{
+    "sturdy":{"name":"sturdy","active":false,"effected_stat":6,"amount":2,"emoji_id":730871082730520649}
+    "swift":{"name":"swift","active":false,"effected_stat":4,"amount":2,"emoji_id":1}
+    "rage":{"name":"rage","active":false,"effected_stat":4,"amount":2,"emoji_id":1}
+}

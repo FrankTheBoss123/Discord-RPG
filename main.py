@@ -4,13 +4,15 @@ import json
 
 import character
 import weapon
-import class
+import classes
 import item
 import skill
 import battle
 
+#add a system in add_skill to limit the skills that a player can have equiped at one time to be 5
+
 TOKEN = ""
-file_path = "/home/pi/Atom/Discord_RPG/user_data.json"
+file_path = "C:\Users\Frank Peng\github\Discord-RPG\game_data\user_data.json"
 BOT_PREFIX = ["."]
 
 class RpgBot:
@@ -63,7 +65,7 @@ class RpgBot:
     def add_player(self,user):
         self.data[user_id] = {}
         self.data[user_id]["money"] = 0
-        self.data[user_id]["character"] = #still needs work
+        self.data[user_id]["character"] = character.create_new_player()
         self.data[user_id]["inventory"] = [None,None,None,None,None]
 
     def read(self):

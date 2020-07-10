@@ -1,7 +1,7 @@
 import random
 
 import weapon
-import class
+import classes
 
 #stats index
 # 0   1   2   3   4   5   6   7
@@ -15,9 +15,10 @@ new_player = {
     "class":"villager",
     "passive-skills":{},
     "active-skills":{},
+    "unused-skills":[],
     "stats":[10,4,2,3,3,4,3,2],
-    "max_stats":class.get_max_stats("villager"),
-    "growth_rate":class.get_growth_rate("villager"),
+    "max_stats":classes.get_max_stats("villager"),
+    "growth_rate":classes.get_growth_rate("villager"),
 }
 
 def create_new_player():
@@ -25,14 +26,24 @@ def create_new_player():
 
 def level_up(character):
     for num in range(len(character["stats"])):
-        if random.random() < character["growth_rate"]:
+        if random.random() < character["growth_rate"][num]:
             character["stats"][num]+=1
     character["level"]+=1
     character["xp"]=0
     if character["level"] == 15:
-        character = add_skill(character,class.get_skill(character["class"]))
+        character = add_skill(character,skill.get_skill(classes.get_skill(character["class"])))
     return character
 
 def add_skill(character,skill):
     if skill.isActive(skill):
-        character
+        skill_tag = skill["trigger"]
+        if skill_tag not in character["active-skills"]:
+            character["active-skills"][skill_tag] = []
+        if skill not in character["active-skills"][skill_tag]:
+            character["active-skills"][skill_tag].append(skill)
+        return character
+    else:
+        if skill["name"] in character["passive-skills"]:
+            return character
+        character["passive-skills"][skill["name"]] = skill
+        return character
