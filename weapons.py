@@ -1,4 +1,5 @@
 import json
+import items
 
 def read():
     with open("/Users/Frank Peng/github/Discord-RPG/game_data/item_data.json","r") as w:
@@ -19,13 +20,20 @@ enchants_data = [
 def get_enchant(num):
     return enchants_data[num-1]
 
-def get_weapon(weapon_name):
-    return weapon_data[weapon_name]
-
 def enchant_item(item,enchant):
     item["enchant"] = enchant
     if "power" in item:
         item["power"]+=int(item["power"]*enchant["buffs"])
     else:
         item["armour"]+=int(item["armour"]*enchant["buffs"])
+    return item
+
+def remove_enchant(item):
+    if item["enchant"] != None:
+        if "power" in item:
+            print(items.get_item(item["name"]))
+            item["power"] = items.get_item(item["name"])["power"]
+        else:
+            item["armour"] = items.get_item(item["name"])["armour"]
+        item["enchant"] = None
     return item

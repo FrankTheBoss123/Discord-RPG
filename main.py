@@ -2,12 +2,12 @@ import discord
 from discord.ext.commands import Bot
 import json
 
-import character
-import weapon
+import characters
+import weapons
 import classes
-import item
-import skill
-import battle
+import items
+import skills
+import battles
 
 #add a system in add_skill to limit the skills that a player can have equiped at one time to be 5
 

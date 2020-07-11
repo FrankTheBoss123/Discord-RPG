@@ -1,14 +1,15 @@
 import random
 
-import weapon
+import weapons
 import classes
+import items
 
 #stats index
 # 0   1   2   3   4   5   6   7
 #[hp,str,mag,skl,spd,lck,def,res]
 
 new_player = {
-    "weapon":weapon.get_weapon("stone sword"),
+    "weapon":items.get_item("stone sword"),
     "level":1,
     "xp":0,
     "max-xp":100,
@@ -31,11 +32,11 @@ def level_up(character):
     character["level"]+=1
     character["xp"]=0
     if character["level"] == 15:
-        character = add_skill(character,skill.get_skill(classes.get_skill(character["class"])))
+        character = add_skill(character,skills.get_skill(classes.get_skill(character["class"])))
     return character
 
 def add_skill(character,skill):
-    if skill.isActive(skill):
+    if skills.isActive(skill):
         skill_tag = skill["trigger"]
         if skill_tag not in character["active-skills"]:
             character["active-skills"][skill_tag] = []

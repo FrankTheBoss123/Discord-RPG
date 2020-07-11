@@ -12,13 +12,13 @@ def read():
 classes_data = read()
 
 def get_max_stats(classname):
-    return classes_data[classname]["max_stats"]
+    return classes_data[classname]["max_stats"].copy()
 
 def get_growth_rate(classname):
-    return classes_data[classname]["growth_rate"]
+    return classes_data[classname]["growth_rate"].copy()
 
 def get_skill(character,classname):
-    return classes_data[classname]["skill"]
+    return classes_data[classname]["skill"].copy()
 
 character_gif = {
     "Lord":"https://cdn.discordapp.com/attachments/697941728375734363/700970098147721246/ezgif.com-gif-maker_38.gif",

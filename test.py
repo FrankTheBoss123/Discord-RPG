@@ -1,9 +1,17 @@
 import classes
-import skill
-import item
-import character
+import skills
+import items
+import characters
+import weapons
 
-player = character.create_new_player()
-player = character.level_up(player)
+weapon = items.get_item("leather shield")
 
-print(player)
+print(weapon)
+
+weapon = weapons.enchant_item(weapon,weapons.get_enchant(5))
+
+print(weapon)
+
+weapon = weapons.remove_enchant(weapon)
+
+print(weapon)

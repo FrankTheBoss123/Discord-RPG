@@ -10,5 +10,5 @@ item_data = read()
 
 def get_item(item_name):
     if item_name in item_data:
-        return item_data["item_data"]
+        return item_data[item_name].copy()
     return None

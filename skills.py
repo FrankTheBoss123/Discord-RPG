@@ -12,4 +12,4 @@ def isActive(skill):
     return skill["active"]
 
 def get_skill(skillname):
-    return skill_data[skillname]
+    return skill_data[skillname].copy()
