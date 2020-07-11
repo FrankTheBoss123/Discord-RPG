@@ -3,6 +3,7 @@ import random
 import weapons
 import classes
 import items
+import skills
 
 #stats index
 # 0   1   2   3   4   5   6   7
@@ -36,15 +37,30 @@ def level_up(character):
     return character
 
 def add_skill(character,skill):
+    if skill["name"] in character["unused-skills"]:
+        return
     if skills.isActive(skill):
         skill_tag = skill["trigger"]
         if skill_tag not in character["active-skills"]:
             character["active-skills"][skill_tag] = []
         if skill not in character["active-skills"][skill_tag]:
             character["active-skills"][skill_tag].append(skill)
-        return character
     else:
         if skill["name"] in character["passive-skills"]:
-            return character
+            return
         character["passive-skills"][skill["name"]] = skill
-        return character
+        skills.apply_passive_skill(character,skill["effected_stat"],skill["amount"])
+
+def remove_skill(character,skill):
+    if skills.isActive(skill):
+        if skill in character["active-skills"][skill["trigger"]]:
+            character["active-skills"][skill["trigger"]].remove(skill)
+            character["unused-skills"].append(skill["name"])
+    else:
+        if skill["name"] in character["passive-skills"]:
+            del character["passive-skills"][skill["name"]]
+            character["unused-skills"].append(skill["name"])
+            skills.remove_passive_skill(character,skill["effected_stat"],skill["amount"])
+
+def add_item(player,item):
+    print("under dev")

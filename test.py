@@ -4,14 +4,17 @@ import items
 import characters
 import weapons
 
-weapon = items.get_item("leather shield")
+character = characters.create_new_player()
 
-print(weapon)
+print(character["stats"])
 
-weapon = weapons.enchant_item(weapon,weapons.get_enchant(5))
+characters.add_skill(character,skills.get_skill("sturdy"))
 
-print(weapon)
+print(character["stats"])
 
-weapon = weapons.remove_enchant(weapon)
+characters.remove_skill(character,skills.get_skill("sturdy"))
+characters.add_skill(character,skills.get_skill("sturdy"))
+print(character["stats"])
 
-print(weapon)
+
+print(character)

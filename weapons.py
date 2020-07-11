@@ -20,13 +20,15 @@ enchants_data = [
 def get_enchant(num):
     return enchants_data[num-1]
 
+def rename_gear(gear,new_name):
+    gear["display_name"] = new_name
+
 def enchant_item(item,enchant):
     item["enchant"] = enchant
     if "power" in item:
         item["power"]+=int(item["power"]*enchant["buffs"])
     else:
         item["armour"]+=int(item["armour"]*enchant["buffs"])
-    return item
 
 def remove_enchant(item):
     if item["enchant"] != None:
@@ -36,4 +38,3 @@ def remove_enchant(item):
         else:
             item["armour"] = items.get_item(item["name"])["armour"]
         item["enchant"] = None
-    return item

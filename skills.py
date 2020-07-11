@@ -13,3 +13,9 @@ def isActive(skill):
 
 def get_skill(skillname):
     return skill_data[skillname].copy()
+
+def apply_passive_skill(character,skill_target,skill_effect):
+    character["stats"][skill_target]+=skill_effect
+
+def remove_passive_skill(character,skill_target,skill_effect):
+    character["stats"][skill_target]-=skill_effect
