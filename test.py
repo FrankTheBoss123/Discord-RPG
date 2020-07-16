@@ -1,20 +1,15 @@
-import classes
-import skills
-import items
-import characters
-import weapons
+import datetime
+import time
 
-character = characters.create_new_player()
+dict = {}
 
-print(character["stats"])
+dict["test"] = datetime.datetime.now()
+dict["test2"]["lol"] = datetime.datetime.now()
+print(dict)
 
-characters.add_skill(character,skills.get_skill("sturdy"))
+time.sleep(5)
 
-print(character["stats"])
-
-characters.remove_skill(character,skills.get_skill("sturdy"))
-characters.add_skill(character,skills.get_skill("sturdy"))
-print(character["stats"])
+dict["test2"]["lol"] = datetime.datetime.now()
 
 
-print(character)
+print(-(dict["test"]-dict["test2"]).total_seconds())

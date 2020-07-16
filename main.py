@@ -1,6 +1,7 @@
 import discord
 from discord.ext.commands import Bot
 import json
+import datetime
 
 import characters
 import weapons
@@ -13,9 +14,14 @@ import battles
 #add a system so that when the player switches classes that if the cross the max stats change it to be limited by the max stats
 #test how the all the skill functions works with a active skill
 
+gonna make a daily and weekly login system
+
 TOKEN = ""
 file_path = "C:\Users\Frank Peng\github\Discord-RPG\game_data\user_data.json"
 BOT_PREFIX = ["."]
+
+daily = {}
+weekly = {}
 
 class RpgBot:
     def __init__(self, token):
@@ -37,11 +43,13 @@ class RpgBot:
 
         @self.client.command()
         async def daily(ctx):
-            print("still under-dev")
+            user = ctx.message.author
+            check_daily(user.id)
 
         @self.client.command()
         async def weekly(ctx):
-            print("still under-dev")
+            user = ctx.message.author
+            check_weekly(user.id)
 
         @self.client.command()
         async def mine(ctx):
@@ -69,6 +77,26 @@ class RpgBot:
         self.data[user_id]["money"] = 0
         self.data[user_id]["character"] = character.create_new_player()
         self.data[user_id]["inventory"] = [None,None,None,None,None]
+
+    def check_daily(self,user_id):
+        if user_id not in daily:
+            daily[user_id] = datetime.datetime.now()
+            return True
+        else:
+            if datetime.datetime.now()-daily[user_id]>=86400:
+                daily[user_id] = datetime.datetime.now()
+                return True
+            return False
+
+    def check_weekly(self,user_id):
+        if user_id not in weekly:
+            weekly[user_id] = datetime.datetime.now()
+            return True
+        else:
+            if datetime.datetime.now()-weekly[user_id]>=604800:
+                weekly[user_id] = datetime.datetime.now()
+                return True
+            return False
 
     def read(self):
         with open(file_path,"r") as w:
