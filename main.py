@@ -43,13 +43,21 @@ class RpgBot:
 
         @self.client.command()
         async def daily(ctx):
-            user = ctx.message.author
-            check_daily(user.id)
+            user_id = ctx.message.author.id
+            if self.check_daily(user_id):
+                await self.client.send("You got 20 bucks")
+                self.add_money(user_id,20)
+            else:
+                await self.client.send(f"{str(datetime.timedelta(seconds=(86400-(datetime.datetime.now()-daily[user_id]))))} cooldown")
 
         @self.client.command()
         async def weekly(ctx):
-            user = ctx.message.author
-            check_weekly(user.id)
+            user_id = ctx.message.author.id
+             if check_weekly(user_id):
+                 await self.client.send("You got 100 bucks")
+                 self.add_money(user_id,100)
+             else:
+                 await self.client.send(f"{str(datetime.timedelta(seconds=(604800-(datetime.datetime.now()-weekly[user_id]))))} cooldown")
 
         @self.client.command()
         async def mine(ctx):
