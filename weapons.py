@@ -38,3 +38,6 @@ def remove_enchant(item):
         else:
             item["armour"] = items.get_item(item["name"])["armour"]
         item["enchant"] = None
+
+def is_magic(weapon):
+    return weapon["type"] == "magic"

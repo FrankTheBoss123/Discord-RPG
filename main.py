@@ -14,8 +14,6 @@ import battles
 #add a system so that when the player switches classes that if the cross the max stats change it to be limited by the max stats
 #test how the all the skill functions works with a active skill
 
-gonna make a daily and weekly login system
-
 TOKEN = ""
 file_path = "C:\Users\Frank Peng\github\Discord-RPG\game_data\user_data.json"
 BOT_PREFIX = ["."]

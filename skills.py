@@ -19,3 +19,7 @@ def apply_passive_skill(character,skill_target,skill_effect):
 
 def remove_passive_skill(character,skill_target,skill_effect):
     character["stats"][skill_target]-=skill_effect
+
+def trigger_skill(attacker,defender,trigger_str):
+    #work on it later
+    a = 0

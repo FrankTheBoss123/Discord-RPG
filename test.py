@@ -1,15 +1,8 @@
-import datetime
-import time
+import battles
+import characters
 
-dict = {}
+player1 = characters.create_new_player()
 
-dict["test"] = datetime.datetime.now()
-dict["test2"]["lol"] = datetime.datetime.now()
-print(dict)
+battles.combat(player1,player1)
 
-time.sleep(5)
-
-dict["test2"]["lol"] = datetime.datetime.now()
-
-
-print(-(dict["test"]-dict["test2"]).total_seconds())
+print(player1)

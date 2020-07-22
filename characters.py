@@ -11,6 +11,7 @@ import skills
 
 new_player = {
     "weapon":items.get_item("stone sword"),
+    "armour":items.get_item("leather shield"),
     "level":1,
     "xp":0,
     "max-xp":100,
@@ -25,6 +26,9 @@ new_player = {
 
 def create_new_player():
     return new_player
+
+def is_alive(character):
+    return character["stats"][0] > 0
 
 def level_up(character):
     for num in range(len(character["stats"])):
