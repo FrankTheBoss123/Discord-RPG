@@ -16,17 +16,19 @@ new_player = {
     "level":1,
     "xp":0,
     "max-xp":100,
-    "class":"villager",
+    "class":None,
     "passive_skills":{},
     "active_skills":{},
     "skills":[],
     "stats":[10,4,2,3,3,4,3,2],
-    "class_stats":classes.get_max_stats("villager"),
+    "class_stats":[0,0,0,0,0,0,0,0],
     "growth_rate":classes.get_growth_rate("villager"),
 }
 
 def create_new_player():
-    return copy.deepcopy(new_player)
+    player = copy.deepcopy(new_player)
+    classes.switch_class(player,"villager")
+    return player
 
 def is_alive(character):
     return character["stats"][0] > 0

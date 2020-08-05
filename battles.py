@@ -7,6 +7,7 @@ import skills
 
 class battle:
     def __init__(self,character1,character2):
+        self.turns = 0
         self.winner, self.loser = self.fight(character1,character2)
 
     def combat(self,attacker,defender):
@@ -29,6 +30,7 @@ class battle:
         defender = character2
         while True:
             attacker["stats"][0],defender["stats"][0] = self.combat(copy.deepcopy(attacker),copy.deepcopy(defender))
+            self.turns+=1
             if attacker["stats"][0] <= 0:
                 return defender,attacker
             if defender["stats"][0] <= 0:
@@ -40,6 +42,9 @@ class battle:
 
     def get_loser(self):
         return self.loser
+
+    def get_turns(self):
+        return self.turns
 
 def get_damage(attacker,defender):
     attacker_weapon, armour = attacker["weapon"], 0

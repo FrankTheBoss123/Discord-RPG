@@ -11,14 +11,22 @@ def read():
 
 classes_data = read()
 
-def get_max_stats(classname):
-    return classes_data[classname]["max_stats"].copy()
+def get_class_stats(classname):
+    return classes_data[classname]["class_stats"].copy()
 
 def get_growth_rate(classname):
     return classes_data[classname]["growth_rate"].copy()
 
 def get_skill(character,classname):
     return classes_data[classname]["skill"].copy()
+
+def switch_class(character,newclassname):
+    character["class"] = newclassname
+    newclass_stats = get_class_stats(newclassname)
+    for x in range(len(character["stats"])):
+        character["stats"][x]-=character["class_stats"][x]
+        character["stats"][x]+=newclass_stats[x]
+    character["class_stats"] = newclass_stats
 
 character_gif = {
     "Lord":"https://cdn.discordapp.com/attachments/697941728375734363/700970098147721246/ezgif.com-gif-maker_38.gif",
@@ -27,7 +35,7 @@ character_gif = {
     "Hero":"https://vignette.wikia.nocookie.net/fireemblem/images/b/b6/FE13_Priam_Hero_Map_Sprite.gif",
     "Thug":"https://vignette.wikia.nocookie.net/fireemblem/images/9/94/FE13_Barbarian_Map_Sprite.gif",
     "Cavalier":"https://vignette.wikia.nocookie.net/fireemblem/images/5/56/FE13_Stahl_Cavalier_Map_Sprite.gif",
-    "Ballista":"https://vignette.wikia.nocookie.net/fireemblem/images/e/ed/FE14_Leo_Ballistician_Map_Sprite.gif",
+    "Ballistician":"https://vignette.wikia.nocookie.net/fireemblem/images/e/ed/FE14_Leo_Ballistician_Map_Sprite.gif",
     "Sage":"https://vignette.wikia.nocookie.net/fireemblem/images/e/ec/FE13_Emmeryn_Sage_Map_Sprite.gif",
     "Mage":"https://vignette.wikia.nocookie.net/fireemblem/images/2/20/FE13_Ricken_Mage_Map_Sprite.gif",
     "Assassin":"https://vignette.wikia.nocookie.net/fireemblem/images/b/b8/FE13_Assassin.gif",
