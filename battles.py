@@ -5,16 +5,11 @@ import characters
 import weapons
 import skills
 
-def combat(character1,character2):
-    if random.choice([True,False]):
-        attacker = copy.deepcopy(character1)
-        defender = copy.deepcopy(character2)
-    else:
-        attacker = copy.deepcopy(character2)
-        defender = copy.deepcopy(character1)
-    a = 0
-    while True:
-        print(a)
+class battle:
+    def __init__(self,character1,character2):
+        self.winner, self.loser = self.fight(character1,character2)
+
+    def combat(self,attacker,defender):
         skills.trigger_skill(attacker,defender,"on-attack")
         skills.trigger_skill(defender,attacker,"on-defence")
         damage = get_damage(attacker,defender)
@@ -23,33 +18,47 @@ def combat(character1,character2):
         print(f"damage: {damage}")
         if get_hit(attacker,defender):
             defender["stats"][0]-=damage
-        skills.trigger_skill(attacker,defender,"on-hit")
-        if not characters.is_alive(defender):
-            print("defender loses")
-            return
-        if not characters.is_alive(attacker):
-            print("attacker loses")
-            return
+            skills.trigger_skill(attacker,defender,"on-hit")
+            print("hit")
         print("attacker stats: "+str(attacker["stats"]))
         print("defender stats: "+str(defender["stats"]))
-        attacker,defender = defender,attacker
-        a+=1
-#stats index
-# 0   1   2   3   4   5   6   7
-#[hp,str,mag,skl,spd,lck,def,res]
+        return attacker["stats"][0],defender["stats"][0]
+
+    def fight(self,character1,character2):
+        attacker = character1
+        defender = character2
+        while True:
+            attacker["stats"][0],defender["stats"][0] = self.combat(copy.deepcopy(attacker),copy.deepcopy(defender))
+            if attacker["stats"][0] <= 0:
+                return defender,attacker
+            if defender["stats"][0] <= 0:
+                return attacker,defender
+            attacker,defender = defender,attacker
+
+    def get_winner(self):
+        return self.winner
+
+    def get_loser(self):
+        return self.loser
 
 def get_damage(attacker,defender):
-    attacker_weapon = attacker["weapon"]
+    attacker_weapon, armour = attacker["weapon"], 0
+    if defender["armour"]:
+        armour = defender["armour"]["armour"]
     if weapons.is_magic(attacker_weapon):
-        return attacker_weapon["power"]+(attacker["stats"][2]-defender["stats"][7])*2+(attacker["stats"][3]-defender["stats"][3])-defender["armour"]["armour"]
+        return attacker_weapon["power"]+(attacker["stats"][2]-defender["stats"][7])*2-armour
     else:
-        return attacker_weapon["power"]+(attacker["stats"][1]-defender["stats"][6])*2+(attacker["stats"][3]-defender["stats"][3])-int(defender["armour"]["armour"]*1.25)
+        return attacker_weapon["power"]+(attacker["stats"][1]-defender["stats"][6])*2-int(armour*1.25)
 
 #might return a value higher than 100
 def get_hit(attacker,defender):
-    chance = (60+(attacker["stats"][4]+defender["stats"][4])*2+(attacker["stats"][3]-defender["stats"][3])+(attacker["weapon"]["weight"]-defender["weapon"]["weight"])*3)/100
-    print(f"hit chance: {chance}")
-    return rng((50+(attacker["stats"][4]+defender["stats"][4])*2+(attacker["stats"][3]-defender["stats"][3])+(attacker["weapon"]["weight"]-defender["weapon"]["weight"])*3)/100)
+    attacker_armour_weight, defender_armour_weight = 0, 0
+    if attacker["armour"]:
+        attacker_armour_weight = attacker["armour"]["weight"]
+    if defender["armour"]:
+        defender_armour_weight = defender["armour"]["weight"]
+    print((50+(attacker["stats"][4]+defender["stats"][4])*2+(attacker["stats"][3]-defender["stats"][3])+(defender["weapon"]["weight"]-attacker["weapon"]["weight"]+defender_armour_weight-attacker_armour_weight)*3)/100)
+    return rng((50+(attacker["stats"][4]+defender["stats"][4])*2+(attacker["stats"][3]-defender["stats"][3])+(defender["weapon"]["weight"]-attacker["weapon"]["weight"]+defender_armour_weight-attacker_armour_weight)*3)/100)
 
 #might return a value higher than 100
 def get_crit(attacker,defender):
@@ -58,9 +67,6 @@ def get_crit(attacker,defender):
     return rng(((attacker["stats"][1]-defender["stats"][1])*5+attacker["weapon"]["crit"])/100)
 
 def rng(chance):
-    if chance <= 0:
-        return False
-    else:
-        if random.random() < chance:
-            return True
-        return False
+    if random.random() < chance:
+        return True
+    return False

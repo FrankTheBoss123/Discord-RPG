@@ -1,6 +1,19 @@
 {
-    "sturdy":{"name":"sturdy","active":false,"effected_stat":6,"amount":2,"emoji_id":730871082730520649},
-    "swift":{"name":"swift","active":false,"effected_stat":4,"amount":2,"emoji_id":1},
-    "rage":{"name":"rage","active":false,"effected_stat":4,"amount":2,"emoji_id":1},
-    "lethality":{"name":"lethality","active":true,"trigger":"on-attack","trigger-rate":[3,6],"target":"self","effected_stat":[1,2],"amount":10000,"emoji_id":1}
+    "hp+5":{"name":"hp+5","active":false,"effected_stat":0,"amount":5,"emoji_id":1},
+    "str+2":{"name":"str+2","active":false,"effected_stat":1,"amount":2,"emoji_id":1},
+    "mag+2":{"name":"mag+2","active":false,"effected_stat":2,"amount":2,"emoji_id":1},
+    "skl+2":{"name":"skl+2","active":false,"effected_stat":3,"amount":2,"emoji_id":1},
+    "spd+2":{"name":"spd+2","active":false,"effected_stat":4,"amount":2,"emoji_id":1},
+    "lck+2":{"name":"lck+2","active":false,"effected_stat":5,"amount":2,"emoji_id":1},
+    "def+2":{"name":"def+2","active":false,"effected_stat":6,"amount":2,"emoji_id":1},
+    "res+2":{"name":"res+2","active":false,"effected_stat":7,"amount":2,"emoji_id":1},
+    "lethality":{"name":"lethality","active":true,"trigger":"on-hit","trigger_rate":[3,6],"target":"opponent","affected_stat":0,"amount":-1000,"emoji_id":1},
+    "counter-strike":{"name":"counter-strike","active":true,"trigger":"on-hit","target":"opponent","affected_stat":0,"amount":-5,"emoji_id":1},
+    "drain":{"name":"drain","active":true,"trigger":"on-hit","target":"self","affected_stat":0,"amount":5,"emoji_id":1},
+    "wrath":{"name":"wrath","active":true,"trigger":"on-attack","target":"self","affected_stat":1,"amount":5,"emoji_id":1},
+    "vengeance":{"name":"vengeance","active":true,"trigger":"on-attack","target":"self","affected_stat":2,"amount":5,"emoji_id":1},
+    "discipline":{"name":"discipline","active":true,"trigger":"on-attack","target":"self","affected_stat":3,"amount":5,"emoji_id":1},
+    "blitzkreig":{"name":"blitzkreig","active":true,"trigger":"on-attack","target":"self","affected_stat":4,"amount":5,"emoji_id":1},
+    "last-stand":{"name":"last-stand","active":true,"trigger":"on-defence","target":"self","affected_stat":6,"amount":5,"emoji_id":1},
+    "resistance":{"name":"resistance","active":true,"trigger":"on-defence","target":"self","affected_stat":7,"amount":5,"emoji_id":1}
 }

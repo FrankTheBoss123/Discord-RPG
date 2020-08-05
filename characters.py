@@ -1,4 +1,5 @@
 import random
+import copy
 
 import weapons
 import classes
@@ -16,16 +17,16 @@ new_player = {
     "xp":0,
     "max-xp":100,
     "class":"villager",
-    "passive-skills":{},
-    "active-skills":{},
-    "unused-skills":[],
+    "passive_skills":{},
+    "active_skills":{},
+    "skills":[],
     "stats":[10,4,2,3,3,4,3,2],
-    "max_stats":classes.get_max_stats("villager"),
+    "class_stats":classes.get_max_stats("villager"),
     "growth_rate":classes.get_growth_rate("villager"),
 }
 
 def create_new_player():
-    return new_player
+    return copy.deepcopy(new_player)
 
 def is_alive(character):
     return character["stats"][0] > 0
@@ -36,34 +37,35 @@ def level_up(character):
             character["stats"][num]+=1
     character["level"]+=1
     character["xp"]=0
+    character["max-xp"]*=1.1
     if character["level"] == 15:
         character = add_skill(character,skills.get_skill(classes.get_skill(character["class"])))
     return character
 
 def add_skill(character,skill):
-    if skill["name"] in character["unused-skills"]:
+    if skill["name"] in character["skills"]:
         return
     if skills.isActive(skill):
         skill_tag = skill["trigger"]
-        if skill_tag not in character["active-skills"]:
-            character["active-skills"][skill_tag] = []
-        if skill not in character["active-skills"][skill_tag]:
-            character["active-skills"][skill_tag].append(skill)
+        if skill_tag not in character["active_skills"]:
+            character["active_skills"][skill_tag] = []
+        if skill not in character["active_skills"][skill_tag]:
+            character["active_skills"][skill_tag].append(skill)
     else:
-        if skill["name"] in character["passive-skills"]:
+        if skill["name"] in character["passive_skills"]:
             return
-        character["passive-skills"][skill["name"]] = skill
+        character["passive_skills"][skill["name"]] = skill
         skills.apply_passive_skill(character,skill["effected_stat"],skill["amount"])
 
 def remove_skill(character,skill):
     if skills.isActive(skill):
-        if skill in character["active-skills"][skill["trigger"]]:
-            character["active-skills"][skill["trigger"]].remove(skill)
-            character["unused-skills"].append(skill["name"])
+        if skill in character["active_skills"][skill["trigger"]]:
+            character["active_skills"][skill["trigger"]].remove(skill)
+            character["skills"].append(skill["name"])
     else:
-        if skill["name"] in character["passive-skills"]:
-            del character["passive-skills"][skill["name"]]
-            character["unused-skills"].append(skill["name"])
+        if skill["name"] in character["passive_skills"]:
+            del character["passive_skills"][skill["name"]]
+            character["skills"].append(skill["name"])
             skills.remove_passive_skill(character,skill["effected_stat"],skill["amount"])
 
 def add_item(player,item):
