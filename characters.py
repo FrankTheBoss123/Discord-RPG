@@ -16,11 +16,12 @@ new_player = {
     "level":1,
     "xp":0,
     "max-xp":100,
+    "max-health":9,
     "class":None,
     "passive_skills":{},
     "active_skills":{},
     "skills":[],
-    "stats":[10,4,2,3,3,4,3,2],
+    "stats":[9,4,2,3,3,4,3,2],
     "class_stats":[0,0,0,0,0,0,0,0],
     "growth_rate":classes.get_growth_rate("villager"),
 }
@@ -36,6 +37,8 @@ def is_alive(character):
 def level_up(character):
     for num in range(len(character["stats"])):
         if random.random() < character["growth_rate"][num]:
+            if num == 0:
+                character["max-health"]+=1
             character["stats"][num]+=1
     character["level"]+=1
     character["xp"]-=character["max-xp"]

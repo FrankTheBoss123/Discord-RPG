@@ -25,6 +25,9 @@ def switch_class(character,newclassname):
     character["class"] = newclassname
     newclass_stats = get_class_stats(newclassname)
     for x in range(len(character["stats"])):
+        if x == 0:
+            character["max-health"]-=character["class_stats"][x]
+            character["max-health"]+=newclass_stats[x]
         character["stats"][x]-=character["class_stats"][x]
         character["stats"][x]+=newclass_stats[x]
     character["class_stats"] = newclass_stats
