@@ -38,11 +38,20 @@ def level_up(character):
         if random.random() < character["growth_rate"][num]:
             character["stats"][num]+=1
     character["level"]+=1
-    character["xp"]=0
+    character["xp"]-=character["max-xp"]
     character["max-xp"]*=1.1
     if character["level"] == 15:
         character = add_skill(character,skills.get_skill(classes.get_skill(character["class"])))
     return character
+
+def add_xp(character,amount):
+    if "misc" in character["active_skills"]:
+        if "veteran" in character["active_skills"]["misc"]:
+            character["xp"]+=int(amount*1.25)
+    else:
+        character["xp"]+=amount
+    while character["xp"]>=character["max-xp"]:
+        level_up(character)
 
 def add_skill(character,skill):
     if skill["name"] in character["skills"]:

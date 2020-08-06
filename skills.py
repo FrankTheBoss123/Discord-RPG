@@ -21,15 +21,19 @@ def apply_passive_skill(character,skill_target,skill_effect):
 def remove_passive_skill(character,skill_target,skill_effect):
     character["stats"][skill_target]-=skill_effect
 
-def trigger_skill(player1,player2,trigger_str):
-    if trigger_str in player1["active_skills"]:
-        for skill in player1["active_skills"][trigger_str]:
+def trigger_skill(self,opponent,trigger_str):
+    if trigger_str in self["active_skills"]:
+        for skill in self["active_skills"][trigger_str]:
             if skill["target"] == "opponent":
-                affected = player2
+                affected = opponent
             if skill["target"] == "self":
-                affected = player1
+                affected = self
             if "trigger_rate" in skill:
-                if rng(player1["stats"][skill["trigger_rate"][0]]/skill["trigger_rate"][1]/100):
+                if isinstance(skill["trigger_rate"][0],str):
+                    if opponent["weapon"]["type"] == skill["trigger_rate"][1]:
+                        print(skill["name"])
+                        affected["stats"][skill["affected_stat"]]+=skill["amount"]
+                elif rng(self["stats"][skill["trigger_rate"][0]]/skill["trigger_rate"][1]/100):
                     print(skill["name"])
                     affected["stats"][skill["affected_stat"]]+=skill["amount"]
             else:
