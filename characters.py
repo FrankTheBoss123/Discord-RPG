@@ -31,9 +31,6 @@ def create_new_player():
     classes.switch_class(player,"villager")
     return player
 
-def is_alive(character):
-    return character["stats"][0] > 0
-
 def level_up(character):
     for num in range(len(character["stats"])):
         if random.random() < character["growth_rate"][num]:

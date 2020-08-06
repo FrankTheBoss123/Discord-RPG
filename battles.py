@@ -21,6 +21,8 @@ class battle:
             defender["stats"][0]-=damage
             skills.trigger_skill(attacker,defender,"on-hit")
             print("hit")
+        attacker["stats"][0] = min(attacker["stats"][0],attacker["max-health"])
+        defender["stats"][0] = min(defender["stats"][0],defender["max-health"])
         print("attacker stats: "+str(attacker["stats"]))
         print("defender stats: "+str(defender["stats"]))
         return attacker["stats"][0],defender["stats"][0]
