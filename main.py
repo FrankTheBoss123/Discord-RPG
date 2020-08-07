@@ -16,7 +16,7 @@ import battles
 #check the player stat that's it's not over max health
 
 TOKEN = ""
-file_path = "C:\Users\Frank Peng\github\Discord-RPG\game_data\user_data.json"
+file_path = "/home/pi/Atom/Github_WorkSpace/Discord-RPG/game_data/user_data.json"
 BOT_PREFIX = ["."]
 
 daily = {}
@@ -41,22 +41,30 @@ class RpgBot:
             print("ready for an adventure")
 
         @self.client.command()
+        async def stat(ctx):
+            user_id = str(ctx.message.author.id)
+            StatEmbed = discord.Embed(colour=discord.Colour.red(),description=str(self.data[user_id]))
+            await ctx.send(embed=StatEmbed)
+
+        @self.client.command()
         async def daily(ctx):
-            user_id = ctx.message.author.id
-            if self.check_daily(user_id):
-                await self.client.send("You got 20 bucks")
+            user_id = str(ctx.message.author.id)
+            boolean, time_diff = self.check_daily(user_id)
+            if boolean:
+                await ctx.send("You got 20 bucks")
                 self.add_money(user_id,20)
             else:
-                await self.client.send(f"{str(datetime.timedelta(seconds=(86400-(datetime.datetime.now()-daily[user_id]))))} cooldown")
+                await ctx.send(f"{str(datetime.timedelta(seconds=(86400-time_diff)))} cooldown")
 
         @self.client.command()
         async def weekly(ctx):
-            user_id = ctx.message.author.id
-             if check_weekly(user_id):
-                 await self.client.send("You got 100 bucks")
-                 self.add_money(user_id,100)
-             else:
-                 await self.client.send(f"{str(datetime.timedelta(seconds=(604800-(datetime.datetime.now()-weekly[user_id]))))} cooldown")
+            user_id = str(ctx.message.author.id)
+            boolean, time_diff = self.check_weekly(user_id)
+            if boolean:
+                await ctx.send("You got 100 bucks")
+                self.add_money(user_id,100)
+            else:
+                await ctx.send(f"{str(datetime.timedelta(seconds=(604800-time_diff)))} cooldown")
 
         @self.client.command()
         async def mine(ctx):
@@ -77,33 +85,40 @@ class RpgBot:
     def add_all_player(self):
         for user in self.client.get_all_members():
             if str(user.id) not in self.data:
-                self.add_player(user)
+                self.add_player(str(user.id))
 
-    def add_player(self,user):
+    def add_player(self,user_id):
         self.data[user_id] = {}
         self.data[user_id]["money"] = 0
-        self.data[user_id]["character"] = character.create_new_player()
+        self.data[user_id]["character"] = characters.create_new_player()
         self.data[user_id]["inventory"] = [None,None,None,None,None]
 
     def check_daily(self,user_id):
         if user_id not in daily:
             daily[user_id] = datetime.datetime.now()
-            return True
+            return True,None
         else:
-            if datetime.datetime.now()-daily[user_id]>=86400:
+            seconds_difference = int((datetime.datetime.now()-daily[user_id]).total_seconds())
+            if seconds_difference>=86400:
                 daily[user_id] = datetime.datetime.now()
-                return True
-            return False
+                return True,None
+            return False,seconds_difference
 
     def check_weekly(self,user_id):
         if user_id not in weekly:
             weekly[user_id] = datetime.datetime.now()
-            return True
+            return True,None
         else:
-            if datetime.datetime.now()-weekly[user_id]>=604800:
+            seconds_difference = int((datetime.datetime.now()-weekly[user_id]).total_seconds())
+            print(seconds_difference)
+            if seconds_difference>=604800:
                 weekly[user_id] = datetime.datetime.now()
-                return True
-            return False
+                return True,None
+            return False,seconds_difference
+
+    def add_money(self,user_id,amount):
+        self.data[user_id]["money"]+=amount
+        self.write(self.data)
 
     def read(self):
         with open(file_path,"r") as w:

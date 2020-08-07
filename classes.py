@@ -9,7 +9,6 @@ def read():
         w.close()
     return file
 
-
 classes_data = read()
 
 def get_class_stats(classname):
